@@ -1,0 +1,36 @@
+{
+  "name": "@tlaukkan/naf-mesh-server-peer",
+  "version": "0.0.1",
+  "description": "Server peer for Networked A-Frame peer to peer mesh.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tlaukkan/naf-mesh-server-peer.git"
+  },
+  "keywords": [
+    "networked",
+    "aframe",
+    "mesh",
+    "server",
+    "peer"
+  ],
+  "author": "Tommi Laukkanen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tlaukkan/naf-mesh-server-peer/issues"
+  },
+  "homepage": "https://github.com/tlaukkan/naf-mesh-server-peer#readme",
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*",
+    "uuid": "^3.2.1"
+  },
+  "dependencies": {
+    "@tlaukkan/webrtc-signaling": "0.0.11",
+    "wrtc": "^0.1.4"
+  }
+}
