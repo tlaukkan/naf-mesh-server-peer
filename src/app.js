@@ -9,7 +9,7 @@ const email = process.env.EMAIL || 'default-email';
 const secret = process.env.SECRET || 'default-secret';
 const serverPeerUrlArray = serverPeerUrls.split(',')
 
-if (!serverPeerUrls) {
+if (serverPeerUrls.length > 3) {
     console.log('Server peer URLs are:')
     serverPeerUrlArray.forEach(serverPeerUrl => {
         if (serverPeerUrl.length > 3) {
@@ -17,15 +17,17 @@ if (!serverPeerUrls) {
         }
     })
 } else {
-    console.log('Server peer URLS are not set.')
+    console.warn('SERVER_PEER_URLS environment variable not set.')
 }
 
 if (email == 'default-email') {
-    console.log('SIGNALING SERVER LOGIN EMAIL NOT SET !!!')
+    console.warn('EMAIL environment variable not set.')
 }
 if (secret == 'default-secret') {
-    console.log('SIGNALING SERVER LOGIN SECRET NOT SET !!!')
+    console.warn('SECRET environment variable not set.')
 }
+
+console.log('server peer starting...')
 
 const signalingServer = new SignalingServer('0.0.0.0', port)
 
@@ -36,7 +38,7 @@ adapter.email = email
 adapter.secret = secret;
 
 adapter.setServerConnectListeners((id) => {
-    console.log('connected to signaling server and got id: ' + id)
+    console.log('connected to signaling server and was assigned client ID: ' + id)
 }, () => {
     console.log('signaling server connect failed')
 })
@@ -87,3 +89,5 @@ function repeatedReconnect() {
         repeatedReconnect()
     }, 15000)
 }
+
+console.log('server peer started.')
