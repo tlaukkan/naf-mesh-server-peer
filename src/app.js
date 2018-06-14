@@ -40,6 +40,7 @@ adapter.secret = secret;
 
 adapter.setServerConnectListeners((id) => {
     console.log('connected to signaling server and was assigned client ID: ' + id)
+    repeatedReconnect()
 }, () => {
     console.log('signaling server connect failed')
 })
@@ -63,8 +64,6 @@ process.on('exit', function() {
     signalingServer.close()
     adapter.close()
 });
-
-repeatedReconnect()
 
 function repeatedReconnect() {
 

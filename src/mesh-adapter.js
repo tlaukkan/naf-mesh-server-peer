@@ -145,18 +145,15 @@ class MeshAdapter {
 
         this.signalingChannel.addServer(this.signalingServerUrl, this.email, this.secret, async (signalServerUrl, selfPeerId) => {
             self.selfPeerUrl = signalServerUrl + '/' + selfPeerId
+            if (self.connectSuccess) {
+                self.connectSuccess(self.selfPeerUrl);
+            }
             if (self.serverPeerUrls && self.serverPeerUrls.length > 3) {
                 self.serverPeerUrls.split(',').forEach(async serverPeerUrl => {
                     await self.offer(new Peer(serverPeerUrl), selfPeerId);
                 })
-                if (self.connectSuccess) {
-                    self.connectSuccess(self.selfPeerUrl);
-                }
             } else {
                 //console.log('mesh adapter did not send offer as serverPeerUrl was not set via setServerUrl function.')
-                if (self.connectSuccess) {
-                    self.connectSuccess(self.selfPeerUrl);
-                }
             }
         }, () => {
             self.connectFailure();
