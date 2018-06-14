@@ -357,11 +357,11 @@ class MeshAdapter {
         };
         channel.onclose = () => {
             if (self.channels.has(peerUrl)) {
-                self.closeStreamConnection(peerUrl)
                 if (self.peers.has(peerUrl) && self.peers.get(peerUrl)) {
                     self.peers.set(peerUrl, false)
                     self.notifyOccupantsChanged()
                 }
+                self.closeStreamConnection(peerUrl)
                 self.debugLog("channel " + channel.label + " closed")
             }
         };
