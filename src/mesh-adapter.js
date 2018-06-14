@@ -153,7 +153,7 @@ class MeshAdapter {
                     self.connectSuccess(self.selfPeerUrl);
                 }
             } else {
-                console.log('mesh adapter did not send offer as serverPeerUrl was not set via setServerUrl function.')
+                //console.log('mesh adapter did not send offer as serverPeerUrl was not set via setServerUrl function.')
                 if (self.connectSuccess) {
                     self.connectSuccess(self.selfPeerUrl);
                 }
