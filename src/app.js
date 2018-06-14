@@ -33,7 +33,7 @@ const signalingServer = new SignalingServer('0.0.0.0', port)
 
 const adapter = new MeshAdapter(webrtc.RTCPeerConnection);
 adapter.setServerPeerUrls(serverPeerUrls)
-adapter.debugLogPrefix = 'DEBUG '
+//adapter.debugLogPrefix = 'DEBUG '
 
 adapter.email = email
 adapter.secret = secret;

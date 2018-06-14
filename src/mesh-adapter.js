@@ -332,7 +332,7 @@ class MeshAdapter {
         self.connections.set(peerUrl, connection)
         connection.oniceconnectionstatechange = function() {
             if(connection.iceConnectionState == 'disconnected') {
-                self.closeStreamConnection(peer.peerUrl)
+                self.closeStreamConnection(peerUrl)
             }
         }
 
