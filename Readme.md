@@ -30,6 +30,7 @@ This library implements Server peer for Networked A-Frame peer to peer mesh
 
 ---
     heroku create <your-heroku-account>-naf-mesh-server-peer
+    heroku config:set EMAIL=<enter your email> SECRET=<enter your secret>
     git push heroku master
     heroku logs -t
 ---
@@ -40,3 +41,4 @@ This library implements Server peer for Networked A-Frame peer to peer mesh
 Signaling server provides 200 OK healthcheck_ /signaling-health-check.
 
 Example: http://127.0.0.1:8080/signaling-health-check
+

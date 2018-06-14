@@ -5,8 +5,8 @@ const MeshAdapter = require('./mesh-adapter').MeshAdapter;
 const port = process.env.PORT || 8080;
 
 const serverPeerUrls = process.env.SERVER_PEER_URLS || '';
-const email = process.env.SERVER_PEER_EMAIL || 'default-email';
-const secret = process.env.SERVER_PEER_SECRET || 'default-secret';
+const email = process.env.EMAIL || 'default-email';
+const secret = process.env.SECRET || 'default-secret';
 const serverPeerUrlArray = serverPeerUrls.split(',')
 
 if (!serverPeerUrls) {
