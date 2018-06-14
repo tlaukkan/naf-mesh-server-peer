@@ -40,7 +40,9 @@ adapter.secret = secret;
 
 adapter.setServerConnectListeners((id) => {
     console.log('connected to signaling server and was assigned client ID: ' + id)
-    repeatedReconnect()
+    setTimeout(() => {
+        repeatedReconnect()
+    }, 15000)
 }, () => {
     console.log('signaling server connect failed')
 })

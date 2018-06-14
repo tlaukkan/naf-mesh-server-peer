@@ -232,6 +232,10 @@ class MeshAdapter {
             connection.close()
             this.debugLog('mesh adapter removed connection ' + clientId)
         }
+        if (this.peers.has(clientId) && this.peers.get(clientId)) {
+            this.peers.set(clientId, false)
+            this.notifyOccupantsChanged()
+        }
         this.debugLog('--- mesh adapter close stream connection ---')
     }
 
@@ -357,12 +361,12 @@ class MeshAdapter {
         };
         channel.onclose = () => {
             if (self.channels.has(peerUrl)) {
-                if (self.peers.has(peerUrl) && self.peers.get(peerUrl)) {
-                    self.peers.set(peerUrl, false)
-                    self.notifyOccupantsChanged()
+                try {
+                    self.closeStreamConnection(peerUrl)
+                    self.debugLog("channel " + channel.label + " closed")
+                } catch (error) {
+                    console.warn("Error in onclose: " + error.message)
                 }
-                self.closeStreamConnection(peerUrl)
-                self.debugLog("channel " + channel.label + " closed")
             }
         };
         channel.onmessage = (event) => {

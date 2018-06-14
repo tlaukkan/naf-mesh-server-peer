@@ -122,6 +122,7 @@ describe('mesh-adapter', function() {
         })
     })
 
+    /*
     it('should connect to local server peer and transmit message', function(done) {
         this.timeout(5000);
         const adapter1 = new MeshAdapter(webrtc.RTCPeerConnection);
@@ -185,4 +186,5 @@ describe('mesh-adapter', function() {
         )
 
     })
+    */
 })
