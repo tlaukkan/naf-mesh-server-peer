@@ -310,6 +310,12 @@ class MeshAdapter {
         const connectionLabel = selfPeerUrl + ' -> ' + peer.peerUrl
         const connection = new self.RTCPeerConnection(self.configuration)
         self.connections.set(peer.peerUrl, connection)
+        connection.oniceconnectionstatechange = function() {
+            if(connection.iceConnectionState == 'disconnected') {
+                self.closeStreamConnection(peer.peerUrl)
+            }
+        }
+
         const peerUrl = peer.peerUrl
         const channel = connection.createDataChannel(connectionLabel);
 
@@ -324,6 +330,12 @@ class MeshAdapter {
         const peerUrl = signalinServerUrl + '/' + peerId
         const connection = new self.RTCPeerConnection(self.configuration)
         self.connections.set(peerUrl, connection)
+        connection.oniceconnectionstatechange = function() {
+            if(connection.iceConnectionState == 'disconnected') {
+                self.closeStreamConnection(peer.peerUrl)
+            }
+        }
+
         this.debugLog('mesh adapter received offer from ' + peerUrl)
         connection.ondatachannel = (event) => {
             const channel = event.channel;

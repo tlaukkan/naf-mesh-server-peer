@@ -169,8 +169,10 @@ describe('mesh-adapter', function() {
 
         adapter1.setRoomOccupantListener((occupantMap) => {
             console.log('adapter 1 occupant change')
-            adapter1.disconnect()
-            done()
+            setTimeout(() => {
+                adapter1.disconnect()
+                done()
+            }, 2000)
         })
 
         adapter1.setDataChannelListeners((id) => {
