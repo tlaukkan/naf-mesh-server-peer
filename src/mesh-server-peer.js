@@ -3,11 +3,12 @@ const WebSocketImplementation = require('websocket').w3cwebsocket;
 const MeshAdapter = require('@tlaukkan/naf-mesh-adapter').MeshAdapter;
 
 exports.MeshServerPeer = class {
-    constructor(port, serverPeerUrls, email, secret) {
+    constructor(port, signalingServerUrl, serverPeerUrls, email, secret) {
         this.closed = false
         this.port = port
         this.email = email
         this.secret = secret
+        this.signalingServerUrl = signalingServerUrl
         this.serverPeerUrls = serverPeerUrls
         this.serverPeerUrlArray = serverPeerUrls.split(',')
         this.adapter = new MeshAdapter(RTCPeerConnectionImplementation, WebSocketImplementation);
@@ -20,6 +21,7 @@ exports.MeshServerPeer = class {
         console.log('server peer starting...')
 
         this.adapter.setServerPeerUrls(this.serverPeerUrls)
+        this.adapter.setSignalServerUrl(this.signalingServerUrl)
 
         this.adapter.email = this.email
         this.adapter.secret = this.secret;
