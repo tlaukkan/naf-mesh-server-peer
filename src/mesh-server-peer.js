@@ -71,6 +71,7 @@ exports.MeshServerPeer = class {
             if (serverPeerUrl.length > 3) {
                 if (!self.adapter.manager.peers.has(serverPeerUrl)) {
                     console.log('server peer - server peer is not connected, attempting to reconnect: ' + serverPeerUrl)
+                    self.adapter.closeStreamConnection(serverPeerUrl)
                     self.adapter.startStreamConnection(serverPeerUrl)
                 } else {
                     console.log('server peer - server peer is connected: ' + serverPeerUrl)
