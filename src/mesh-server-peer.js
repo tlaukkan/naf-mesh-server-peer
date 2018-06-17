@@ -4,6 +4,7 @@ const MeshAdapter = require('@tlaukkan/naf-mesh-adapter').MeshAdapter;
 
 exports.MeshServerPeer = class {
     constructor(port, serverPeerUrls, email, secret) {
+        this.closed = false
         this.port = port
         this.email = email
         this.secret = secret
@@ -24,42 +25,49 @@ exports.MeshServerPeer = class {
         this.adapter.secret = this.secret;
 
         this.adapter.setServerConnectListeners((id) => {
-            console.log('connected to signaling server and was assigned client ID: ' + id)
-            setTimeout(() => {
+            console.log('server peer - connected to signaling server and was assigned client ID: ' + id)
+            setInterval(() => {
                 self.repeatedReconnect()
-            }, 15000)
+            }, 15000).unref()
         }, () => {
-            console.log('signaling server connect failed')
+            console.log('server peer - signaling server connect failed')
         })
 
         this.adapter.setRoomOccupantListener((occupantMap) => {
-            console.log('occupant change: ' + JSON.stringify(occupantMap))
+            console.log('server peer - occupant change: ' + JSON.stringify(occupantMap))
         })
 
         this.adapter.setDataChannelListeners((id) => {
-                console.log('peer data channel opened from: ' + id)
+                console.log('server peer - peer data channel opened from: ' + id)
             }, (id) => {
-                console.log('peer data channel closed from: ' + id)
+                console.log('server peer - peer data channel closed from: ' + id)
             }, (id, dataType, data) => {
-                console.log('peer data channel message from: ' + id + ' ' + dataType + ' ' +data)
+                console.log('server peer - peer data channel message from: ' + id + ' ' + dataType + ' ' +data)
             }
         )
 
         this.adapter.connect()
 
-        console.log('server peer started.')
+        console.log('server peer - server peer started.')
     }
 
     close() {
+        if (this.closed) {
+            return
+        }
+        this.closed = true
         this.adapter.disconnect()
     }
 
+
+
     repeatedReconnect() {
+        if (this.closed) { return }
         const self = this
 
         self.adapter.peers.forEach((connected, peerUrl) => {
             if (!connected) {
-                console.log('cleaning up disconnected peer: ' + peerUrl)
+                console.log('server peer - cleaning up disconnected peer: ' + peerUrl)
                 self.adapter.peers.delete(peerUrl)
             }
         })
@@ -67,17 +75,13 @@ exports.MeshServerPeer = class {
         this.serverPeerUrlArray.forEach(serverPeerUrl => {
             if (serverPeerUrl.length > 3) {
                 if (!self.adapter.peers.has(serverPeerUrl) || !self.adapter.peers.get(serverPeerUrl)) {
-                    console.log('disconnected server peer, attempting to reconnect: ' + serverPeerUrl)
+                    console.log('server peer - server peer is not connected, attempting to reconnect: ' + serverPeerUrl)
                     self.adapter.startStreamConnection(serverPeerUrl)
                 } else {
-                    console.log('connected server peer: ' + serverPeerUrl)
+                    console.log('server peer - server peer is connected: ' + serverPeerUrl)
                 }
             }
         })
-
-        setTimeout(() => {
-            self.repeatedReconnect()
-        }, 15000)
     }
 }
 
