@@ -9,7 +9,7 @@ const MeshAdapter = require('@tlaukkan/naf-mesh-adapter').MeshAdapter;
 
 describe('naf-mesh-server-peer-remote-test.js', function() {
 
-    it('should connect to remote server peer and receive occupant 1', function(done) {
+    it('should connect to remote server peer at localhost and receive occupant', function(done) {
         this.timeout(8000);
         const adapter1 = new MeshAdapter(RTCPeerConnectionImplementation, WebSocketImplementation);
         adapter1.setSignalServerUrl('wss://tlaukkan-webrtc-signaling.herokuapp.com');
@@ -47,7 +47,7 @@ describe('naf-mesh-server-peer-remote-test.js', function() {
 
     })
 
-    it('should connect to remote server peer and receive occupant 2', function(done) {
+    it('should connect to remote server peer and receive occupant', function(done) {
         this.timeout(8000);
         const adapter1 = new MeshAdapter(RTCPeerConnectionImplementation, WebSocketImplementation);
         adapter1.setSignalServerUrl('wss://tlaukkan-webrtc-signaling.herokuapp.com');
@@ -62,11 +62,15 @@ describe('naf-mesh-server-peer-remote-test.js', function() {
             console.log('adapter server connect failed')
         })
 
+        let isDone = false
         adapter1.setRoomOccupantListener((occupantMap) => {
             console.log('adapter 1 occupant change: ' + JSON.stringify(occupantMap))
             if (Object.keys(occupantMap).length === 2) {
                 adapter1.disconnect()
-                done()
+                if (!isDone) {
+                    done()
+                    isDone = true
+                }
             }
         })
 

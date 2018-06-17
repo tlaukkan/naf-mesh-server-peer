@@ -67,13 +67,6 @@ exports.MeshServerPeer = class {
         if (this.closed) { return }
         const self = this
 
-        self.adapter.peers.forEach((connected, peerUrl) => {
-            if (!connected) {
-                console.log('server peer - cleaning up disconnected peer: ' + peerUrl)
-                self.adapter.peers.delete(peerUrl)
-            }
-        })
-
         this.serverPeerUrlArray.forEach(serverPeerUrl => {
             if (serverPeerUrl.length > 3) {
                 if (!self.adapter.peers.has(serverPeerUrl) || !self.adapter.peers.get(serverPeerUrl)) {
