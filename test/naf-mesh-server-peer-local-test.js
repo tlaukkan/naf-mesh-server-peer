@@ -29,13 +29,17 @@ describe('naf-mesh-server-peer-local-test', function() {
             console.log('adapter 1 server connect failed')
         })
 
+        let isDone = false
         adapter1.setRoomOccupantListener((occupantMap) => {
             console.log('adapter 1 occupant change: ' + JSON.stringify(occupantMap));
             if (Object.keys(occupantMap).length === 2) {
                 adapter1.disconnect();
                 meshServerPeer1.close();
                 meshServerPeer2.close();
-                done()
+                if (!isDone) {
+                    done()
+                    isDone = true
+                }
             }
         })
 
