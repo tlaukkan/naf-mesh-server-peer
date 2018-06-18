@@ -30,7 +30,7 @@ exports.MeshServerPeer = class {
             console.log('server peer - connected to signaling server and was assigned client ID: ' + id)
             setInterval(() => {
                 self.repeatedReconnect()
-            }, 15000).unref()
+            }, 10000).unref()
         }, () => {
             console.log('server peer - signaling server connect failed')
         })

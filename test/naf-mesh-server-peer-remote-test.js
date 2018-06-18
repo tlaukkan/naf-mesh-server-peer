@@ -27,7 +27,7 @@ describe('naf-mesh-server-peer-remote-test.js', function() {
         var isDone = false
         adapter1.setRoomOccupantListener((occupantMap) => {
             console.log('adapter 1 occupant change: ' + JSON.stringify(occupantMap))
-            if (Object.keys(occupantMap).length === 1) {
+            if (Object.keys(occupantMap).length === 3) {
                 adapter1.disconnect()
                 if (!isDone) {
                     done()
