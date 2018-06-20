@@ -44,7 +44,7 @@ exports.MeshServerPeer = class {
             }, (id) => {
                 console.log('server peer - peer data channel closed from: ' + id)
             }, (id, dataType, data) => {
-                console.log('server peer - peer data channel message from: ' + id + ' ' + dataType + ' ' +data)
+                console.log('server peer - peer data channel message from: ' + id + ' ' + dataType + ' ' + JSON.stringify(data))
             }
         )
 
