@@ -10,6 +10,7 @@ const signalingServerUrl = process.env.SIGNALING_SERVER_URL || 'wss://tlaukkan-w
 const serverPeerUrls = process.env.SERVER_PEER_URLS || '';
 const email = process.env.EMAIL || 'default-email';
 const secret = process.env.SECRET || 'default-secret';
+const position = process.env.POSITION || '{"x":0, "y":0, "z":0}';
 const serverPeerUrlArray = serverPeerUrls.split(',')
 
 if (!process.env.SIGNALING_SERVER_URL) {
@@ -32,9 +33,12 @@ if (!process.env.EMAIL ) {
 if (!process.env.SECRET) {
     console.warn('SECRET environment variable not set.')
 }
+if (!process.env.POSITION) {
+    console.warn('POSITION environment variable not set, defaulting to {x:0, y:0, z:0}.')
+}
 
 const signalingServer = new SignalingServer('0.0.0.0', port)
-const meshServerPeer = new MeshServerPeer(port, signalingServerUrl, serverPeerUrls, email, secret)
+const meshServerPeer = new MeshServerPeer(port, signalingServerUrl, serverPeerUrls, email, secret, position)
 
 process.on('exit', function() {
     signalingServer.close()
