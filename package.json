@@ -30,7 +30,7 @@
     "uuid": "^3.2.1"
   },
   "dependencies": {
-    "@tlaukkan/naf-mesh-adapter": "0.0.21",
+    "@tlaukkan/naf-mesh-adapter": "0.0.22",
     "@tlaukkan/webrtc-signaling": "0.0.22",
     "wrtc": "^0.1.4"
   }
