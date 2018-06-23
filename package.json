@@ -1,6 +1,6 @@
 {
   "name": "@tlaukkan/naf-mesh-server-peer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Server peer for Networked A-Frame peer to peer mesh.",
   "main": "src/index.js",
   "scripts": {
