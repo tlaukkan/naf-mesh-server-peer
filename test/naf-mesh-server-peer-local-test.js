@@ -5,7 +5,6 @@ const uuidv4 = require('uuid/v4');
 const WebSocketImplementation = (typeof (WebSocket) !== 'undefined') ? WebSocket : require('websocket').w3cwebsocket
 const RTCPeerConnectionImplementation = (typeof (RTCPeerConnection) !== 'undefined') ? RTCPeerConnection : require('wrtc').RTCPeerConnection
 
-const SignalingServer = require('@tlaukkan/webrtc-signaling').SignalingServer;
 const MeshServerPeer = require('../src/mesh-server-peer').MeshServerPeer;
 const MeshAdapter = require('@tlaukkan/naf-mesh-adapter').MeshAdapter;
 
